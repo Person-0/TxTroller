@@ -11,17 +11,21 @@
 */
 
 // SBUS settings
-#define SBUS_UART_IRQ (SBUS_UART_ID == uart0) ? UART0_IRQ : UART1_IRQ
-#define SBUS_BAUD_RATE 100000
-#define SBUS_DATA_BITS 8
-#define SBUS_STOP_BITS 2
-#define SBUS_PARITY UART_PARITY_EVEN
+#define SBUS_UART_IRQ   (SBUS_UART_ID == uart0) ? UART0_IRQ : UART1_IRQ
+#define SBUS_BAUD_RATE  100000
+#define SBUS_DATA_BITS  8
+#define SBUS_STOP_BITS  2
+#define SBUS_PARITY     UART_PARITY_EVEN
 
 // SBUS parsing
 volatile uint8_t sbus_index = 0;
 volatile uint8_t sbus_byteCache[25];
 volatile uint8_t sbus_bitStore[11];
 static void (*channel_callback)(uint8_t, uint16_t) = NULL;
+
+void set_sbus_led(bool status) {
+    //gpio_put(SBUS_LED_PIN, (bool)status);
+}
 
 static void parse_sbus_bytes() {
     channel_callback(1, (sbus_byteCache[1]       | sbus_byteCache[2]  << 8) & 0x07FF);
@@ -53,16 +57,12 @@ static void on_uart_rx() {
     set_sbus_led(0);
 }
 
-void set_sbus_led(bool status) {
-    gpio_put(SBUS_LED_PIN, status);
-}
-
 int setup_sbus() {
 
     // setup onboard led
-	gpio_init(SBUS_LED_PIN);
-	gpio_set_dir(SBUS_LED_PIN, GPIO_OUT);
-	gpio_put(SBUS_LED_PIN, 0);  // off
+	// gpio_init(SBUS_LED_PIN);
+	// gpio_set_dir(SBUS_LED_PIN, GPIO_OUT);
+	// gpio_put(SBUS_LED_PIN, 0);  // off
 
     uart_init(SBUS_UART_ID, SBUS_BAUD_RATE);
     gpio_set_function(SBUS_PIN, GPIO_FUNC_UART);
