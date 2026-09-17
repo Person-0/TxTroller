@@ -21,22 +21,18 @@
 volatile uint8_t sbus_index = 0;
 volatile uint8_t sbus_byteCache[25];
 volatile uint8_t sbus_bitStore[11];
-volatile uint16_t sbus_channels[8];
 static void (*channel_callback)(uint8_t, uint16_t) = NULL;
 
-static void parse_sbus_bytes() {
-    sbus_channels[0]  = ((sbus_byteCache[1]       | sbus_byteCache[2] << 8)                             & 0x07FF);
-    sbus_channels[1]  = ((sbus_byteCache[2]  >> 3 | sbus_byteCache[3] << 5)                             & 0x07FF);
-    sbus_channels[2]  = ((sbus_byteCache[3]  >> 6 | sbus_byteCache[4] << 2  | sbus_byteCache[5] << 10)  & 0x07FF);
-    sbus_channels[3]  = ((sbus_byteCache[5]  >> 1 | sbus_byteCache[6] << 7)                             & 0x07FF);
-    sbus_channels[4]  = ((sbus_byteCache[6]  >> 4 | sbus_byteCache[7] << 4)                             & 0x07FF);
-    sbus_channels[5]  = ((sbus_byteCache[7]  >> 7 | sbus_byteCache[8] << 1  | sbus_byteCache[9] << 9)   & 0x07FF);
-    sbus_channels[6]  = ((sbus_byteCache[9]  >> 2 | sbus_byteCache[10] << 6)                            & 0x07FF);
-    sbus_channels[7]  = ((sbus_byteCache[10] >> 5 | sbus_byteCache[11] << 3)                            & 0x07FF);
-
-    for (uint8_t i = 0; i <= 7; i++) {
-        channel_callback(i + 1, sbus_channels[i]);
-    }
+static void parse_sbus_bytes()
+{
+    channel_callback(1, (sbus_byteCache[1]       | sbus_byteCache[2] << 8) & 0x07FF);
+    channel_callback(2, (sbus_byteCache[2] >> 3  | sbus_byteCache[3] << 5) & 0x07FF);
+    channel_callback(3, (sbus_byteCache[3] >> 6  | sbus_byteCache[4] << 2 | sbus_byteCache[5] << 10) & 0x07FF);
+    channel_callback(4, (sbus_byteCache[5] >> 1  | sbus_byteCache[6] << 7) & 0x07FF);
+    channel_callback(5, (sbus_byteCache[6] >> 4  | sbus_byteCache[7] << 4) & 0x07FF);
+    channel_callback(6, (sbus_byteCache[7] >> 7  | sbus_byteCache[8] << 1 | sbus_byteCache[9] << 9) & 0x07FF);
+    channel_callback(7, (sbus_byteCache[9] >> 2  | sbus_byteCache[10] << 6) & 0x07FF);
+    channel_callback(8, (sbus_byteCache[10] >> 5 | sbus_byteCache[11] << 3) & 0x07FF);
 }
 
 static void on_uart_rx() {
