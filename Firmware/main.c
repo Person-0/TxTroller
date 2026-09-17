@@ -52,7 +52,7 @@ hid_gamepad_report_t LATEST_GAMEPAD_REPORT = {
 	.buttons = 0
 };
 
-static int8_t parse_sbus_val(uint16_t data) {
+static int8_t sbus2hidVal(uint16_t data) {
     if (data < 172)  data = 172;
     if (data > 1811) data = 1811;
     return (int8_t)((((int32_t)(data - 172) * 254) / 1639) - 127);
@@ -61,16 +61,16 @@ static int8_t parse_sbus_val(uint16_t data) {
 void receiver_callback(uint8_t channel, uint16_t data) {
     switch (channel) {
         case 1:
-			LATEST_GAMEPAD_REPORT.z = parse_sbus_val(data);
+			LATEST_GAMEPAD_REPORT.z = sbus2hidVal(data);
             break;
         case 2:
-			LATEST_GAMEPAD_REPORT.rx = parse_sbus_val(data);
+			LATEST_GAMEPAD_REPORT.rx = sbus2hidVal(data);
             break;
         case 3:
-            LATEST_GAMEPAD_REPORT.y = -parse_sbus_val(data);
+            LATEST_GAMEPAD_REPORT.y = -sbus2hidVal(data);
             break;
         case 4:
-            LATEST_GAMEPAD_REPORT.x = parse_sbus_val(data);
+            LATEST_GAMEPAD_REPORT.x = sbus2hidVal(data);
             break;
         case 5:
             break;
