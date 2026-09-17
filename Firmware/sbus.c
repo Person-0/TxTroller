@@ -24,18 +24,19 @@ volatile uint8_t sbus_bitStore[11];
 static void (*channel_callback)(uint8_t, uint16_t) = NULL;
 
 static void parse_sbus_bytes() {
-    channel_callback(1, (sbus_byteCache[1]       | sbus_byteCache[2] << 8) & 0x07FF);
-    channel_callback(2, (sbus_byteCache[2] >> 3  | sbus_byteCache[3] << 5) & 0x07FF);
-    channel_callback(3, (sbus_byteCache[3] >> 6  | sbus_byteCache[4] << 2 | sbus_byteCache[5] << 10) & 0x07FF);
-    channel_callback(4, (sbus_byteCache[5] >> 1  | sbus_byteCache[6] << 7) & 0x07FF);
-    channel_callback(5, (sbus_byteCache[6] >> 4  | sbus_byteCache[7] << 4) & 0x07FF);
-    channel_callback(6, (sbus_byteCache[7] >> 7  | sbus_byteCache[8] << 1 | sbus_byteCache[9] << 9) & 0x07FF);
-    channel_callback(7, (sbus_byteCache[9] >> 2  | sbus_byteCache[10] << 6) & 0x07FF);
+    channel_callback(1, (sbus_byteCache[1]       | sbus_byteCache[2]  << 8) & 0x07FF);
+    channel_callback(2, (sbus_byteCache[2]  >> 3 | sbus_byteCache[3]  << 5) & 0x07FF);
+    channel_callback(3, (sbus_byteCache[3]  >> 6 | sbus_byteCache[4]  << 2  | sbus_byteCache[5] << 10) & 0x07FF);
+    channel_callback(4, (sbus_byteCache[5]  >> 1 | sbus_byteCache[6]  << 7) & 0x07FF);
+    channel_callback(5, (sbus_byteCache[6]  >> 4 | sbus_byteCache[7]  << 4) & 0x07FF);
+    channel_callback(6, (sbus_byteCache[7]  >> 7 | sbus_byteCache[8]  << 1  | sbus_byteCache[9] <<  9) & 0x07FF);
+    channel_callback(7, (sbus_byteCache[9]  >> 2 | sbus_byteCache[10] << 6) & 0x07FF);
     channel_callback(8, (sbus_byteCache[10] >> 5 | sbus_byteCache[11] << 3) & 0x07FF);
 }
 
 static void on_uart_rx() {
     while (uart_is_readable(SBUS_UART_ID)) {
+        set_sbus_led(1);
         uint8_t byte = uart_getc(SBUS_UART_ID);
         if (sbus_index == 0) {
             if (byte != 0x0F) {
@@ -49,9 +50,20 @@ static void on_uart_rx() {
             sbus_index = 0;
         }
     }
+    set_sbus_led(0);
 }
 
-int setup_sbus_uart() {
+void set_sbus_led(bool status) {
+    gpio_put(SBUS_LED_PIN, status);
+}
+
+int setup_sbus() {
+
+    // setup onboard led
+	gpio_init(SBUS_LED_PIN);
+	gpio_set_dir(SBUS_LED_PIN, GPIO_OUT);
+	gpio_put(SBUS_LED_PIN, 0);  // off
+
     uart_init(SBUS_UART_ID, SBUS_BAUD_RATE);
     gpio_set_function(SBUS_PIN, GPIO_FUNC_UART);
     uart_set_hw_flow(SBUS_UART_ID, false, false);
@@ -65,7 +77,9 @@ int setup_sbus_uart() {
     irq_set_exclusive_handler(SBUS_UART_IRQ, on_uart_rx);
     irq_set_enabled(SBUS_UART_IRQ, true);
     uart_set_irq_enables(SBUS_UART_ID,true,false); // RX only
-    printf("SBUS UART port setup correctly\n");
+
+    printf("SBUS setup correctly\n");
+
     return 0;
 }
 

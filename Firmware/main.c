@@ -66,7 +66,7 @@ int main(void) {
 	gpio_put(ONBOARD_LED, 1);  // off
 
 	// setup sbus
-	setup_sbus_uart();
+	setup_sbus();
 	register_channel_callback(receiver_callback);
 
 	// init device stack on configured roothub port
@@ -91,7 +91,7 @@ void tud_mount_cb(void) { blink_interval_ms = BLINK_MOUNTED; }
 void tud_umount_cb(void) { blink_interval_ms = BLINK_NOT_MOUNTED; }
 
 // Invoked when usb bus is suspended
-// remote_wakeup_en : if host allow us  to perform remote wakeup
+// remote_wakeup_en : if host allow us to perform remote wakeup
 // Within 7ms, device must draw an average of current less than 2.5 mA from bus
 void tud_suspend_cb(bool remote_wakeup_en) {
 	(void)remote_wakeup_en;
