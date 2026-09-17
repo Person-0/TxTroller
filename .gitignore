@@ -8,10 +8,10 @@
 
 PCB/working_exports
 PCB/bom.xlsx
-PCB/TxTroller/TxTroller-backups
-PCB/TxTroller/fp-info-cache
-PCB/TxTroller/#auto_saved_files#
-PCB/TxTroller/_autosave-TxTroller.kicad_sch
-PCB/TxTroller/_autosave-TxTroller.kicad_pcb
-PCB/TxTroller/fabrication-toolkit-options.json
-PCB/TxTroller/production
+PCB/TxTroller-backups
+PCB/fp-info-cache
+PCB/#auto_saved_files#
+PCB/_autosave-TxTroller.kicad_sch
+PCB/_autosave-TxTroller.kicad_pcb
+PCB/fabrication-toolkit-options.json
+PCB/production
