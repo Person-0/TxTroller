@@ -42,7 +42,9 @@ The case looks like this:
 The case has side extrusions for friction-fitting the top and bottom part of the case together.
 
 ## Firmware
+*Originally modified from [raspberrypi/pico-examples/tree/master/usb/device/dev_hid_composite
+](https://github.com/raspberrypi/pico-examples/tree/master/usb/device/dev_hid_composite).*
 
-Currently WIP
+Checkout the [Firmware directory](./Firmware/).
 
 ## 😼💖
