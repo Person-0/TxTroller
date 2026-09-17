@@ -23,8 +23,7 @@ volatile uint8_t sbus_byteCache[25];
 volatile uint8_t sbus_bitStore[11];
 static void (*channel_callback)(uint8_t, uint16_t) = NULL;
 
-static void parse_sbus_bytes()
-{
+static void parse_sbus_bytes() {
     channel_callback(1, (sbus_byteCache[1]       | sbus_byteCache[2] << 8) & 0x07FF);
     channel_callback(2, (sbus_byteCache[2] >> 3  | sbus_byteCache[3] << 5) & 0x07FF);
     channel_callback(3, (sbus_byteCache[3] >> 6  | sbus_byteCache[4] << 2 | sbus_byteCache[5] << 10) & 0x07FF);
