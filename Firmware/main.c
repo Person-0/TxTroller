@@ -45,13 +45,14 @@ hid_gamepad_report_t LATEST_GAMEPAD_REPORT = {
 	.x = 0,
 	.y = 0,
 	.z = 0,
-	.rz = 0,
 	.rx = 0,
 	.ry = 0,
-	.hat = GAMEPAD_HAT_CENTERED,
-	.buttons = 0
+	.rz = 0,
+	.hat = GAMEPAD_HAT_CENTERED,	// not enough btns for dpad
+	.buttons = 0					// btns
 };
 
+// [200,1800] >> [-128,127]
 static int8_t sbus2hidVal(uint16_t data) {
     if (data < 172)  data = 172;
     if (data > 1811) data = 1811;
@@ -73,12 +74,25 @@ void receiver_callback(uint8_t channel, uint16_t data) {
             LATEST_GAMEPAD_REPORT.x = sbus2hidVal(data);
             break;
         case 5:
+			LATEST_GAMEPAD_REPORT.buttons &= ~((1 << 0) | (1 << 1));
+            if (data < 900) {
+                LATEST_GAMEPAD_REPORT.buttons |= (1 << 0);
+            }
+            else if (data > 1100) {
+                LATEST_GAMEPAD_REPORT.buttons |= (1 << 1);
+            }
             break;
-        case 6: 
+        case 6:
+			LATEST_GAMEPAD_REPORT.ry = sbus2hidVal(data);
             break;
         case 7:
+			LATEST_GAMEPAD_REPORT.buttons &= ~(1 << 2);
+            if (data < 900) {
+                LATEST_GAMEPAD_REPORT.buttons |= (1 << 2);
+            }
             break;
         case 8:
+			LATEST_GAMEPAD_REPORT.rz = sbus2hidVal(data);
             break;
         default:
             printf("!!!!unrecognized channel index: %d\n", channel);
@@ -105,7 +119,6 @@ int main(void) {
 	while (1) {
 		tud_task();  // tinyusb device task
 		led_blinking_task();
-
 		hid_task();
 	}
 }
