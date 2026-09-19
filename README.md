@@ -47,7 +47,7 @@ The case has side extrusions for friction-fitting the top and bottom part of the
 
 Checkout the [Firmware directory](./Firmware/) to view more information on button mappings, firmware compiling / flashing and testing the data received from the receiver.
 
-## Ordering & BOM
+## Ordering, BOM & 3d Printing
 
 The PCB contains no SMD components or any other component that cannot be soldered using a normal soldering iron, hence no PCBA is required.
 
@@ -69,4 +69,17 @@ The PCB gerber .zip file is available in [PCB/exports/](./PCB/exports/).
 
 > *Note that the PCB states 150ohm resistor but we have only added 100ohm, this is because we can arrange 3 100 ohm resistors in such a way that the effective resistance becomes 150ohms (2parallel+1series).*
 
-## 😼💖
+As for the 3d prints, the following files need to be printed **separately**:
+- [CAD/exports/TxTroller_lid.step](./CAD/exports/TxTroller_lid.step)
+- [CAD/exports/TxTroller_bottom.step](./CAD/exports/TxTroller_bottom.step)
+
+Since they are designed to be friction fitted, no screws or heatset-inserts are needed.
+
+## Credits
+- https://github.com/controllercustom/dinput_tinyusb
+- https://www.thingiverse.com/thing:6989033
+- https://www.reddit.com/r/embedded/comments/1m6d1ei/gamepad_using_tinyusb_on_raspberry_pi_pico/
+- https://github.com/gdsports/gamepad_tinyusb
+- https://github.com/raspberrypi/pico-examples/tree/master/usb/device/dev_hid_composite
+
+## Thank You! 😼💖
