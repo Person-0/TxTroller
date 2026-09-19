@@ -45,6 +45,28 @@ The case has side extrusions for friction-fitting the top and bottom part of the
 *Originally modified from [raspberrypi/pico-examples/tree/master/usb/device/dev_hid_composite
 ](https://github.com/raspberrypi/pico-examples/tree/master/usb/device/dev_hid_composite).*
 
-Checkout the [Firmware directory](./Firmware/) to view more information on button mappings, firmware compiling / flashing and testing the data receiver from the receiver. 
+Checkout the [Firmware directory](./Firmware/) to view more information on button mappings, firmware compiling / flashing and testing the data received from the receiver.
+
+## Ordering & BOM
+
+The PCB contains no SMD components or any other component that cannot be soldered using a normal soldering iron, hence no PCBA is required.
+
+The PCB gerber .zip file is available in [PCB/exports/](./PCB/exports/).
+
+### BOM Table
+---
+
+| S.No | Item Name        | Description                    | Product URL                                                                              | Qty | Unit Price ($) | Effective Price ($) |
+| ---: | ---------------- | ------------------------------ | ---------------------------------------------------------------------------------------- | --: | -------------: | ------------------: |
+|    1 | XIAO RP2040      | RP2040 Microcontroller         | [XIAO RP2040](https://robocraze.com/products/seeed-studio-xiao-rp2040-development-board) |   1 |           6.14 |                6.14 |
+|    2 | PCB              | PCB manufacturing cost (5 qty) | [Lion Circuits](https://www.lioncircuits.com/quote)                                      |   1 |           9.84 |                9.84 |
+|    3 | 1k Ohm Resistor  | 1k Ohm Resistor - Pack of 10   | [1k Resistor Pack](https://robocraze.com/products/1k-resistor-pack-of-10)                |   1 |           0.13 |                0.13 |
+|    4 | 10k Ohm Resistor | 10k Ohm Resistor - Pack of 10  | [10k Resistor Pack](https://robocraze.com/products/10k-resistor-pack-of-10)              |   1 |           0.14 |                0.14 |
+|    5 | 100 Ohm Resistor | 100 Ohm Resistor - Pack of 10  | [100 Ohm Resistor Pack](https://robocraze.com/products/100-ohm-resistor-pack-of-10)      |   1 |           0.16 |                0.16 |
+|      |                  |                                |                                                                                          |     |      **Total** |           **16.41$** |
+
+---
+
+> *Note that the PCB states 150ohm resistor but we have only added 100ohm, this is because we can arrange 3 100 ohm resistors in such a way that the effective resistance becomes 150ohms (2parallel+1series).*
 
 ## 😼💖
