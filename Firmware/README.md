@@ -16,8 +16,8 @@ These are the mappings I did for my T8FB transmitter.
 | Left Joystick, Y axis  | Left stick, Y axis            |
 | Axis 4                 | Top right rotary              |
 | Axis 5                 | Top left rotary               |
-| Button A               | Top right switch (position 1) |
-| Button B               | Top right switch (position 2) |
-| Button X               | Top left switch (L position)  |
+| Button A               | Top right switch (L position) |
+| Button B               | Top right switch (H position) |
+| Button X               | Top left switch  (L position) |
 | Button Y               | —                             |
 ---
