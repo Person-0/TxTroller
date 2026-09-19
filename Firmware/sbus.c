@@ -24,7 +24,7 @@ volatile uint8_t sbus_bitStore[11];
 static void (*channel_callback)(uint8_t, uint16_t) = NULL;
 
 void set_sbus_led(bool status) {
-    gpio_put(SBUS_LED_PIN, (bool)status);
+    gpio_put(SBUS_LED_PIN, status);
 }
 
 static void parse_sbus_bytes() {
@@ -58,8 +58,6 @@ static void on_uart_rx() {
 }
 
 int setup_sbus() {
-
-    setup onboard led
 	gpio_init(SBUS_LED_PIN);
 	gpio_set_dir(SBUS_LED_PIN, GPIO_OUT);
 	gpio_put(SBUS_LED_PIN, 0);  // off
