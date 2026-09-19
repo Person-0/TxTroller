@@ -18,3 +18,5 @@ Channel map for reference that I tested on my transmitter.
 7 -> top left switch        (  h      -> 1800, l      -> 200              )
 8 -> top left rotary        (  left   -> 200 , right  -> 1800             )
 ```
+
+### For compiling / flashing, please refer to the main firmware's compiling / flashing guide.

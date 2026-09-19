@@ -45,6 +45,6 @@ The case has side extrusions for friction-fitting the top and bottom part of the
 *Originally modified from [raspberrypi/pico-examples/tree/master/usb/device/dev_hid_composite
 ](https://github.com/raspberrypi/pico-examples/tree/master/usb/device/dev_hid_composite).*
 
-Checkout the [Firmware directory](./Firmware/).
+Checkout the [Firmware directory](./Firmware/) to view more information on button mappings, firmware compiling / flashing and testing the data receiver from the receiver. 
 
 ## 😼💖
