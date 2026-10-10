@@ -29,11 +29,15 @@ void receiver_callback(uint8_t channel, uint16_t data) {
 int main() {
     stdio_init_all();
     printf("hello world!!\n");
-    setup_sbus();
-    register_channel_callback(receiver_callback);
+
+    gpio_init(1);
+    gpio_put(1, true);
+
+    // setup_sbus();
+    // register_channel_callback(receiver_callback);
     while(1) {
         if (current_ms() - tstamp >= LOG_INTERVAL) {
-            displayChannels();
+            // displayChannels();
             tstamp = current_ms();
         }
     };

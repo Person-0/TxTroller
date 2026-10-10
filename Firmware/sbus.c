@@ -22,9 +22,18 @@ volatile uint8_t sbus_index = 0;
 volatile uint8_t sbus_byteCache[25];
 volatile uint8_t sbus_bitStore[11];
 static void (*channel_callback)(uint8_t, uint16_t) = NULL;
+volatile uint8_t sbus_led_status = 0;
 
-void set_sbus_led(bool status) {
-    gpio_put(SBUS_LED_PIN, status);
+void sbus_led_ping() {
+    sbus_led_status += 1;
+    if (sbus_led_status > 32) {
+        gpio_put(SBUS_LED_PIN, true);
+        if (sbus_led_status >= 128) {
+            sbus_led_status = 0;
+        }
+        return;
+    }
+    gpio_put(SBUS_LED_PIN, false);
 }
 
 static void parse_sbus_bytes() {
@@ -40,9 +49,9 @@ static void parse_sbus_bytes() {
 
 static void on_uart_rx() {
     while (uart_is_readable(SBUS_UART_ID)) {
-        set_sbus_led(1);
         uint8_t byte = uart_getc(SBUS_UART_ID);
         if (sbus_index == 0) {
+            sbus_led_ping();
             if (byte != 0x0F) {
                 continue;
             }
@@ -54,7 +63,6 @@ static void on_uart_rx() {
             sbus_index = 0;
         }
     }
-    set_sbus_led(0);
 }
 
 int setup_sbus() {
