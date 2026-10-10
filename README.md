@@ -1,15 +1,17 @@
 # **TxTroller**
 *A Radio Receiver-to-USB HID Gamepad Adapter.*
 
-# The Plan
+# What is this?
 This is a simple adapter that will allow older-style Radio transmitter / receiver combos to be used as video-game controllers using the USB HID Gamepad device class.
+
+Watch me crash quads using TxTroller: [youtube video link](https://www.youtube.com/watch?v=WwyzCUGAeks)
 
 ## Hardware
 For the initial stages, this is being developed for the [`Radiolink R8EF`](https://www.radiolink.com/r8ef) receiver, which is an 8-channel receiver operating on the 2.4GHz frequency band.
 
 As for the transmitter that will be the actual gamepad, It will be the [`Radiolink T8FB`](https://www.radiolink.com/t8fb) transmitter, which is a 2.4GHz 8 Channels RC Remote Transmitter.
 
-The microcontroller that will be responsible for translating the SBUS signals from the receiver to the USB device class will be an [`XIAO RP2040`](https://wiki.seeedstudio.com/XIAO-RP2040/) due to it's small footprint and easy-to-use C/C++ SDK.
+The microcontroller that will be responsible for translating the SBUS signals from the receiver to the USB device class is the [`XIAO RP2040`](https://wiki.seeedstudio.com/XIAO-RP2040/) due to it's small footprint and easy-to-use C/C++ SDK.
 
 ## PCB
 
@@ -74,6 +76,15 @@ As for the 3d prints, the following files need to be printed **separately**:
 - [CAD/exports/TxTroller_bottom.step](./CAD/exports/TxTroller_bottom.step)
 
 Since they are designed to be friction fitted, no screws or heatset-inserts are needed.
+
+## Assembly Instructions
+1. Get the PCB manufactured via any PCB fab (I used [lioncircuits.com/](https://www.lioncircuits.com/))
+2. Solder the transistor, LED, resistors, headers and then finally the MCU. (This order is preferred so as to not let other components get damaged due to less space)
+3. Flash the firmware, connect your receiver and test whether the device is working fine.
+4. Get the case 3d printed, set the PCB inside the bottom part of the case, close it via the lid.
+5. If the case is loose, use a rubber band to firmly hold it in place. Connect the receiver and place it beneath the bottom part of the case.
+6. Again use something like a rubber badn to hold the receiver firmly in place.
+7. Build finished!
 
 ## Credits
 - https://github.com/controllercustom/dinput_tinyusb
