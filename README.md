@@ -1,6 +1,21 @@
 # **TxTroller**
 *A Radio Receiver-to-USB HID Gamepad Adapter.*
 
+## Build Photos
+
+<img src="./assets/img1.jpeg" width="512px">
+<img src="./assets/blinking.gif" width="512px">
+<img src="./assets/assembled.jpg" width="512px" height="512px">
+<img src="./assets/print.webp" width="512px">
+
+## Demo Video 
+> Click to open in YouTube
+<div align="left">
+      <a href="https://www.youtube.com/watch?v=WwyzCUGAeks">
+         <img src="https://img.youtube.com/vi/WwyzCUGAeks/0.jpg" width="256px">
+      </a>
+</div>
+
 # What is this?
 This is a simple adapter that will allow older-style Radio transmitter / receiver combos to be used as video-game controllers using the USB HID Gamepad device class.
 
